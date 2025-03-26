@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mindme
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mindme
+  template:
+    metadata:
+      labels:
+        app: mindme
+    spec:
+      containers
+      - name: mindme
+        image: aminemaalej/tetrisv2:2
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mindme-service
+spec:
+  selector:
+    app: mindme
+  ports:
+  - protocol: TCP
+    port: 80                
+    targetPort: 3000
+  type: LoadBalancer
